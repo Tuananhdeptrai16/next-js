@@ -1,8 +1,11 @@
+import AppHeader from '@/components/header/app.header';
 import * as React from 'react';
 
 
 export default function HomePage() {
   return (
-    <h1>Xin chào </h1>
+    <div>
+      <AppHeader/>
+    </div>
   );
 }
