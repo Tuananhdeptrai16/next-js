@@ -12,7 +12,10 @@ import Menu from "@mui/material/Menu";
 import SearchIcon from "@mui/icons-material/Search";
 import AccountCircle from "@mui/icons-material/AccountCircle";
 import MoreIcon from "@mui/icons-material/MoreVert";
-import Container from '@mui/material/Container';
+import Container from "@mui/material/Container";
+import Avatar from "@mui/material/Avatar";
+import Link from 'next/link'
+import { useRouter } from "next/navigation";
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
   borderRadius: theme.shape.borderRadius,
@@ -51,9 +54,11 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
       width: "350px",
     },
   },
+  
 }));
 
 export default function AppHeader() {
+  const router  = useRouter()
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] =
     React.useState<null | HTMLElement>(null);
@@ -77,26 +82,33 @@ export default function AppHeader() {
   const handleMobileMenuOpen = (event: React.MouseEvent<HTMLElement>) => {
     setMobileMoreAnchorEl(event.currentTarget);
   };
+  const handleRedirectHome  = () => {
+    router.push('/')
+  }
 
   const menuId = "primary-search-account-menu";
   const renderMenu = (
     <Menu
       anchorEl={anchorEl}
-      anchorOrigin={{
-        vertical: "top",
-        horizontal: "right",
-      }}
       id={menuId}
       keepMounted
-      transformOrigin={{
-        vertical: "top",
-        horizontal: "right",
-      }}
       open={isMenuOpen}
       onClose={handleMenuClose}
+      anchorOrigin={{
+        vertical: "bottom",
+        horizontal: "center",
+      }}
+      transformOrigin={{
+        vertical: "top",
+        horizontal: "center",
+      }}
     >
-      <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
-      <MenuItem onClick={handleMenuClose}>My account</MenuItem>
+      <MenuItem onClick={handleMenuClose}>
+        <Link style={{color : 'unset', textDecoration : 'none'}} href={'/profile'}>Profile</Link>
+      </MenuItem>
+      <MenuItem onClick={handleMenuClose}>
+         <Link style={{color : 'unset', textDecoration : 'none'}} href={'/profile'}>My account</Link>
+      </MenuItem>
     </Menu>
   );
 
@@ -133,60 +145,68 @@ export default function AppHeader() {
   );
 
   return (
-    <Box sx={{ flexGrow: 1 }} >
-      <AppBar position="static" 
-       
-      >
+    <Box sx={{ flexGrow: 1 }}>
+      <AppBar position="static" sx={{ background: "#000" }}>
         <Container>
-            <Toolbar>
-         
-          <Typography
-            variant="h6"
-            noWrap
-            component="div"
-            sx={{ display: { xs: "none", sm: "block" } }}
-          >
-            TuanAnhNextJS
-          </Typography>
-          <Search>
-            <SearchIconWrapper>
-              <SearchIcon />
-            </SearchIconWrapper>
-            <StyledInputBase
-              placeholder="Search…"
-              inputProps={{ "aria-label": "search" }}
-            />
-          </Search>
-          <Box sx={{ flexGrow: 1 }} />
-          <Box sx={{ display: { xs: "none", md: "flex" }, alignItems : 'center', gap : '20px' }}>
-              <span>Playlist</span>
-              <span>Likes</span>
-              <span>Upload</span>
-            <IconButton
-              size="large"
-              edge="end"
-              aria-label="account of current user"
-              aria-controls={menuId}
-              aria-haspopup="true"
-              onClick={handleProfileMenuOpen}
-              color="inherit"
+          <Toolbar>
+            <Typography
+              variant="h6"
+              noWrap
+              component="div"
+              sx={{ display: { xs: "none", sm: "block" }, cursor : 'pointer' , userSelect :'none'}}
+              onClick={()=> handleRedirectHome()}
             >
-              <AccountCircle />
-            </IconButton>
-          </Box>
-          <Box sx={{ display: { xs: "flex", md: "none" } }}>
-            <IconButton
-              size="large"
-              aria-label="show more"
-              aria-controls={mobileMenuId}
-              aria-haspopup="true"
-              onClick={handleMobileMenuOpen}
-              color="inherit"
+              TuanAnhNextJS
+            </Typography>
+            <Search>
+              <SearchIconWrapper>
+                <SearchIcon />
+              </SearchIconWrapper>
+              <StyledInputBase
+                placeholder="Search…"
+                inputProps={{ "aria-label": "search" }}
+              />
+            </Search>
+            <Box sx={{ flexGrow: 1 }} />
+            <Box
+              sx={{
+                display: { xs: "none", md: "flex" },
+                alignItems: "center",
+                gap: "20px",
+                '> a' : {
+                  color : "unset", 
+                  textDecoration :'none'
+                }
+              }}
             >
-              <MoreIcon />
-            </IconButton>
-          </Box>
-        </Toolbar>
+              <Link href={'/playlist'}>Playlist</Link>
+              <Link href={'/likes'}>Likes</Link>
+              <Link href={'/likes'}>Upload</Link>
+              <IconButton
+                size="large"
+                edge="end"
+                aria-label="account of current user"
+                aria-controls={menuId}
+                aria-haspopup="true"
+                onClick={handleProfileMenuOpen}
+                color="inherit"
+              >
+                <Avatar>TA</Avatar>
+              </IconButton>
+            </Box>
+            <Box sx={{ display: { xs: "flex", md: "none" } }}>
+              <IconButton
+                size="large"
+                aria-label="show more"
+                aria-controls={mobileMenuId}
+                aria-haspopup="true"
+                onClick={handleMobileMenuOpen}
+                color="inherit"
+              >
+                <MoreIcon />
+              </IconButton>
+            </Box>
+          </Toolbar>
         </Container>
       </AppBar>
       {renderMobileMenu}
