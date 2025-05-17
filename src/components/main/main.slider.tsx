@@ -15,10 +15,11 @@ const MainSlider = () => {
         sx={{
           position: "absolute",
           right: 0,
-          top: "50%",
+          top: "40%",
           zIndex: 2,
           minWidth: 30,
           width: 35,
+          border: "1px solid #1976d2",
         }}
       >
         <ChevronRightOutlined />
@@ -32,10 +33,11 @@ const MainSlider = () => {
         sx={{
           position: "absolute",
           left: 0,
-          top: "50%",
+          top: "40%",
           zIndex: 2,
           minWidth: 30,
           width: 35,
+          border: "1px solid #1976d2",
         }}
       >
         <ChevronLeftOutlined />
@@ -44,10 +46,14 @@ const MainSlider = () => {
   };
   const divItemBox = () => {
     return (
-      <Box 
+      <Box
         sx={{
-            margin : '0 50px', 
-            background : "#ccc"
+          margin: "0 10px",
+          background: "#ccc",
+          height: "200px",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
         }}
       >
         TA
@@ -55,7 +61,6 @@ const MainSlider = () => {
     );
   };
   const settings: Settings = {
-    dots: true,
     infinite: true,
     speed: 500,
     slidesToShow: 5,
@@ -65,26 +70,17 @@ const MainSlider = () => {
     prevArrow: <PrevArrow />,
   };
   return (
-    <Slider {...settings} className="slider-container">
-      <div style={{ width: 200 }} className="slider-item">
-        {divItemBox()}
-      </div>
-      <div style={{ width: 200 }} className="slider-item">
-        {divItemBox()}
-      </div>
-      <div style={{ width: 200 }} className="slider-item">
-       {divItemBox()}
-      </div>
-      <div style={{ width: 200 }} className="slider-item">
-       {divItemBox()}
-      </div>
-      <div style={{ width: 200 }} className="slider-item">
-        {divItemBox()}
-      </div>
-      <div style={{ width: 200 }} className="slider-item">
-      {divItemBox()}
-      </div>
-    </Slider>
+    <>
+      <h1 className="slider-title">Tiêu đề 1 </h1>
+      <Slider {...settings} className="slider-container">
+        <div className="slider-item">{divItemBox()}</div>
+        <div className="slider-item">{divItemBox()}</div>
+        <div className="slider-item">{divItemBox()}</div>
+        <div className="slider-item">{divItemBox()}</div>
+        <div className="slider-item">{divItemBox()}</div>
+        <div className="slider-item">{divItemBox()}</div>
+      </Slider>
+    </>
   );
 };
 
